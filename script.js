@@ -1,3 +1,22 @@
+function convertYouTubeToInvidious(url) {
+    if (!url) return url;
+    
+    // Liste öffentlicher Invidious-Instanzen (kann bei Bedarf ausgetauscht werden)
+    const invidiousInstance = "https://invidious.nerdvpn.de";
+    
+    // Sucht nach der 11-stelligen YouTube Video-ID
+    const ytRegex = /(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?|shorts)\/|.*[?&]v=)|youtu\.be\/)([^"&?\/\s]{11})/i;
+    const match = url.match(ytRegex);
+    
+    if (match && match[1]) {
+        const videoId = match[1];
+        // Leitet auf den werbefreien Invidious-Embed mit Autoplay um
+        return `${invidiousInstance}/embed/${videoId}?autoplay=1&local=true`;
+    }
+    
+    return url;
+}
+
 const maxTimeDifference = 2;
 
 var resourceName = 'pmms';
